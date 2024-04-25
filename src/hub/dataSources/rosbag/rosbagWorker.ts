@@ -2,7 +2,7 @@ import Log from "../../../shared/log/Log"; // problem is up here i guess
 import { PROTO_PREFIX, STRUCT_PREFIX } from "../../../shared/log/LogUtil";
 import LoggableType from "../../../shared/log/LoggableType";
 import CustomSchemas from "../schema/CustomSchemas";
-import { open } from 'rosbag'
+import { open } from "rosbag";
 // const { open } = require('rosbag');
 self.onmessage = (event) => {
   // WORKER SETUP
