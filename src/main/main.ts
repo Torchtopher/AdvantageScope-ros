@@ -1112,7 +1112,7 @@ function setupMenu() {
               .showOpenDialog(window, {
                 title: "Select a robot log file to open",
                 properties: ["openFile"],
-                filters: [{ name: "Robot logs", extensions: ["rlog", "wpilog", "dslog", "dsevents", "hoot"] }],
+                filters: [{ name: "Robot logs", extensions: ["bag", "rlog", "wpilog", "dslog", "dsevents", "hoot"] }],
                 defaultPath: getDefaultLogPath()
               })
               .then((files) => {
@@ -1131,7 +1131,7 @@ function setupMenu() {
               title: "Select up to " + MERGE_MAX_FILES.toString() + " robot log files to open",
               message: "Up to " + MERGE_MAX_FILES.toString() + " files can be opened together",
               properties: ["openFile", "multiSelections"],
-              filters: [{ name: "Robot logs", extensions: ["rlog", "wpilog", "dslog", "dsevents", "hoot"] }],
+              filters: [{ name: "Robot logs", extensions: ["bag", "rlog", "wpilog", "dslog", "dsevents", "hoot"] }],
               defaultPath: getDefaultLogPath()
             });
             let files = filesResponse.filePaths;

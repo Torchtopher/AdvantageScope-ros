@@ -9,6 +9,7 @@ export class HistoricalDataSource {
     ".rlog": "hub$rlogWorker.js",
     ".wpilog": "hub$wpilogWorker.js",
     ".hoot": "hub$wpilogWorker.js", // Converted to WPILOG by main process
+    ".bag": "hub$rosbagWorker.js",
     ".dslog": "hub$dsLogWorker.js",
     ".dsevents": "hub$dsLogWorker.js"
   };
@@ -87,7 +88,7 @@ export class HistoricalDataSource {
     if (this.status !== HistoricalDataSourceStatus.Reading) return;
     this.setStatus(HistoricalDataSourceStatus.Decoding);
     this.customError = data.error;
-    let fileContents: (Uint8Array | null)[][] = data.files;
+    let fileContents: (Uint8Array | string | null)[][] = data.files;
 
     // Check for read error (at least one file is all null)
     if (!fileContents.every((contents) => !contents.every((buffer) => buffer === null))) {
@@ -102,6 +103,10 @@ export class HistoricalDataSource {
     for (let i = 0; i < fileContents.length; i++) {
       // Get contents and worker
       let contents = fileContents[i];
+      // if rosbag, just send the path as the contents
+      if (this.paths[i].endsWith(".bag")) {
+        contents = this.paths;
+      }
       let path = this.paths[i];
       let selectedWorkerName: string | null = null;
       Object.entries(this.WORKER_NAMES).forEach(([extension, workerName]) => {
